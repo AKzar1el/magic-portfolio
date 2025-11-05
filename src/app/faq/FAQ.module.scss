@@ -1,0 +1,140 @@
+/* Spacious, Once-UI-fluent FAQ — no width jump, no DOM churn, smooth expand */
+
+/* Layout */
+.wrapper {
+  --sbw: calc(100vw - 100%); /* scrollbar width (or 0 when none) */
+  max-width: min(1180px, calc(100% - 128px + var(--sbw)));
+  margin: 0 auto;
+  padding: 7rem calc(1.75rem + var(--sbw) / 2) 9rem;
+}
+
+/* Heading */
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--neutral-on-background-weak);
+  font-size: 11px;
+}
+.title {
+  font-weight: 800;
+  font-size: clamp(32px, 3.8vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+.lead {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--neutral-on-background-medium);
+}
+
+/* Card container */
+.card {
+   border: 1px solid var(--neutral-alpha-weak);
+   border-radius: var(--radius-m-4);
+   background: var(--page-background);
+   overflow: hidden;
+   margin-top: 1.5rem;
+   padding-block: 2px;
+   width: 100%;
+}
+
+/* Each item carries its own divider (no separate .divider element) */
+.details {
+  border-top: 1px solid var(--neutral-alpha-weak);
+}
+.card > .details:first-child { border-top: none; }
+
+/* SUMMARY — use grid with fixed icon lane so row never re-measures on open */
+.summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px; /* text track + fixed icon */
+  align-items: center;
+  column-gap: 20px;
+  padding: 26px 32px;
+  transition: background 160ms ease;
+  min-height: 64px;
+  box-sizing: border-box;
+}
+.summary::marker { content: ""; }   
+.summary:hover { background: var(--neutral-background-weak); }
+.summary:focus-visible {
+  outline: 2px solid var(--brand-alpha-strong);
+  outline-offset: 2px;
+}
+.summary::-webkit-details-marker { display: none; } /* hide UA marker */
+
+.summaryText {
+  min-width: 0;            /* allow wrap without pushing the icon */
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.25;
+}
+.summaryIcon {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  justify-self: end;       /* pin chevron to the right */
+}
+
+/* Chevron rotation only (no other style changes between states) */
+.chevron {
+  color: var(--neutral-on-background-weak);
+  transition: transform 160ms ease;
+}
+.details[open] .chevron { transform: rotate(180deg); }
+
+/* Smooth expand (CSS-only) */
+.answerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease;
+}
+.details[open] .answerWrap { grid-template-rows: 1fr; }
+
+.answer {
+  overflow: hidden;           /* needed for the grid trick */
+  padding: 0 32px 26px 32px;  /* align with summary */
+  color: var(--neutral-on-background-strong);
+  line-height: 1.72;
+  max-width: 85ch;
+}
+
+/* CTA row */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 52px;
+}
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 18px;
+  background: var(--brand-background-strong);
+  color: var(--brand-on-background-strong);
+  border-radius: var(--radius-m-2);
+}
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 18px;
+  border: 1px solid var(--neutral-alpha-weak);
+  color: var(--neutral-on-background-strong);
+  border-radius: var(--radius-m-2);
+}
+
+/* XL */
+@media (min-width: 1440px) {
+  .wrapper {
+    max-width: min(1200px, calc(100% - 160px));
+    padding-top: 8rem;
+    padding-bottom: 10rem;
+  }
+  .summary { padding: 30px 36px; }
+  .answer  { padding: 0 36px 30px 36px; }
+}

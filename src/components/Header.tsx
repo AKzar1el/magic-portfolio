@@ -166,6 +166,26 @@ export const Header = () => {
                   </Row>
                 </>
               )}
+              {/* FAQ — added */}
+              {routes["/faq"] && (
+                <>
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="help"
+                      href="/faq"
+                      label="FAQ"
+                      selected={pathname.startsWith("/faq")}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
+                    <ToggleButton
+                      prefixIcon="help"
+                      href="/faq"
+                      selected={pathname.startsWith("/faq")}
+                    />
+                  </Row>
+                </>
+              )}
               {display.themeSwitcher && (
                 <>
                   <Line background="neutral-alpha-medium" vert maxHeight="24" />
