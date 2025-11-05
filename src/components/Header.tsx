@@ -147,6 +147,29 @@ export const Header = () => {
                   </Row>
                 </>
               )}
+              {/* Pricing — added */}
+              {routes["/pricing"] && (
+                <>
+                  {/* Desktop: label + icon */}
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="tag"             // if your icon set lacks "tag", try "credit-card" or "dollar-sign"
+                      href="/pricing"
+                      label="Pricing"
+                      selected={pathname.startsWith("/pricing")}
+                    />
+                  </Row>
+
+                  {/* Mobile: icon only */}
+                  <Row hide s={{ hide: false }}>
+                    <ToggleButton
+                      prefixIcon="tag"
+                      href="/pricing"
+                      selected={pathname.startsWith("/pricing")}
+                    />
+                  </Row>
+                </>
+              )}
               {routes["/gallery"] && (
                 <>
                   <Row s={{ hide: true }}>
